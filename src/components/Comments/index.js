@@ -1,101 +1,69 @@
-import {Component} from 'react'
-import {v4 as uuidv4} from 'uuid'
-import CommentItem from '../CommentItem'
+// Write your code here
+import {formatDistanceToNow} from 'date-fns'
 
 import './index.css'
 
-// const initialContainerBackgroundClassNames = [
-//   'amber',
-//   'blue',
-//   'orange',
-//   'emerald',
-//   'teal',
-//   'red',
-//   'light-blue',
-// ]
+const CommentItem = props => {
+  const {commentDetails} = props
+  const {id, name, comment, isLiked, initialClassName, date} = commentDetails
+  const initial = name ? name[0].toUpperCase() : ''
+  const likeTextClassName = isLiked ? 'button active' : 'button'
+  const likeImageUrl = isLiked
+    ? 'https://assets.ccbp.in/frontend/react-js/comments-app/liked-img.png'
+    : 'https://assets.ccbp.in/frontend/react-js/comments-app/like-img.png'
+  const postedTime = formatDistanceToNow(date)
 
-class Comments extends Component {
-  state = {name: '', comment: '', commentsList: []}
-
-  onChangeName = event => {
-    this.setState({name: event.target.value})
+  const onClickLike = () => {
+    const {toggleIsLiked} = props
+    toggleIsLiked(id)
   }
 
-  onChangeComment = event => {
-    this.setState({comment: event.target.value})
+  const onDeleteComment = () => {
+    const {deleteComment} = props
+    deleteComment(id)
   }
 
-  toggleIsLiked = id => {
-    this.setState(prevState => ({
-      commentsList: prevState.commentsList.map(eachComment => {
-        if (eachComment.id === id) {
-          return {...eachComment, isLiked: !eachComment.isLiked}
-        }
-        return eachComment
-      }),
-    }))
-  }
-
-  onAddComment = event => {
-    event.preventDefault()
-    const {name, comment} = this.state
-    const newComment = {
-      id: uuidv4(),
-      name,
-      comment,
-      isLiked: false,
-    }
-    this.setState(prevState => ({
-      commentsList: [...prevState.commentsList, newComment],
-      name: '',
-      comment: '',
-    }))
-  }
-
-  onDelComment = id => {
-    const {commentsList} = this.state
-    this.setState({
-      commentsList: commentsList.filter(eachComment => eachComment.id !== id),
-    })
-  }
-
-  render() {
-    const {name, comment, commentsList} = this.state
-    return (
-      <div>
+  return (
+    <li className="comment-item">
+      <div className="comment-container">
+        <div className={initialClassName}>
+          <p className="initial">{initial}</p>
+        </div>
         <div>
-          <h1>Comments</h1>
-          <form onSubmit={this.onAddComment}>
-            <input
-              value={name}
-              onChange={this.onChangeName}
-              placeholder="Your Name"
-            />
-            <input
-              value={comment}
-              onChange={this.onChangeComment}
-              placeholder="Your Comment"
-            />
-            <button type="submit">Add Comment</button>
-          </form>
-          <div>
-            <p>{commentsList.length}</p>
-            <p>Comments</p>
+          <div className="username-time-container">
+            <p className="username">{name}</p>
+            <p className="time">{postedTime} ago</p>
           </div>
-          <ul>
-            {commentsList.map(eachComment => (
-              <CommentItem
-                commentDetails={eachComment}
-                onDelComment={this.onDelComment}
-                toggleIsLiked={this.toggleIsLiked}
-                isLiked={eachComment.isLiked}
-              />
-            ))}
-          </ul>
+          <p className="comment">{comment}</p>
         </div>
       </div>
-    )
-  }
+      <div className="buttons-container">
+        <div className="like-container">
+          <img src={likeImageUrl} alt="like" className="like-image" />
+          <button
+            className={likeTextClassName}
+            type="button"
+            onClick={onClickLike}
+          >
+            Like
+          </button>
+        </div>
+        <button
+          className="button"
+          type="button"
+          onClick={onDeleteComment}
+          data-testid="delete"
+        >
+          <img
+            className="delete"
+            src="https://assets.ccbp.in/frontend/react-js/comments-app/delete-img.png"
+            alt="delete"
+          />
+        </button>
+      </div>
+      <hr className="comment-line" />
+    </li>
+  )
 }
 
-export default Comments
+export default CommentItem
