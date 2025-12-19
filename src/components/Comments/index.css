@@ -1,0 +1,96 @@
+/* Write your CSS here */
+.comments-app-container {
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+  background-color: #f1f5f9;
+  min-height: 100vh;
+}
+
+.comments-responsive-container {
+  width: 100%;
+  max-width: 700px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.comments-heading {
+  font-size: 28px;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.comments-description {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 12px;
+}
+
+.comments-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.comments-input,
+.comments-textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+}
+
+.comments-input:focus,
+.comments-textarea:focus {
+  border-color: #3b82f6;
+}
+
+.comments-button {
+  background-color: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  align-self: flex-start;
+  transition: background-color 0.3s;
+}
+
+.comments-button:hover {
+  background-color: #0369a1;
+}
+
+.comments-image {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+}
+
+.comments-separator {
+  border: 0;
+  border-top: 1px solid #cbd5e1;
+  margin: 20px 0;
+}
+
+.comments-count {
+  color: #475569;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.comments-count-number {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.comments-list {
+  padding: 0;
+  margin: 0;
+}
